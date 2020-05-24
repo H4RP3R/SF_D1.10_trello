@@ -6,4 +6,4 @@ python trello_client.py
 При первом запуске необходимо ввести ваш api key, token и короткий ID доски,
 скоторой собираетесь работать.
 
-![app preview](https://i.imgur.com/5YAcXuz.gifv)
+![app preview](https://i.imgur.com/5YAcXuz.gif)
