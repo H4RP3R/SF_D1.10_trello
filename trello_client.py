@@ -50,6 +50,10 @@ def show_tasks(board_id, auth_params):
     column_data = requests.get(BASE_URL.format('boards') + '/' +
                                board_id + '/lists', params=auth_params).json()
 
+    if len(column_data) < 1:
+        print('Нет созданных колонок')
+        return
+
     for column in column_data:
         task_data = requests.get(BASE_URL.format('lists') + '/' +
                                  column['id'] + '/cards', params=auth_params).json()
