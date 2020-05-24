@@ -1,5 +1,5 @@
 ### Запуск
-pip install -r requirements.txt
+pip install -r requirements.txt 
 python trello_client.py
 
 ### Ввести данные
