@@ -3,11 +3,12 @@
 
 import os
 import requests
-import readline
 import sys
 import json
 from termcolor import colored, cprint
 
+if os.name != 'nt':
+    import readline
 
 BASE_URL = 'https://api.trello.com/1/{}'
 
