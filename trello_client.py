@@ -12,6 +12,11 @@ from termcolor import colored, cprint
 BASE_URL = 'https://api.trello.com/1/{}'
 
 
+class LessThanOneValueError(Exception):
+    '''Raised when the input value is less than 1'''
+    pass
+
+
 def get_auth_params(message=None):
     clear_screen()
     if message is not None:
@@ -147,11 +152,13 @@ def move(board_id, auth_params):
 
         # Дать пользователю выбрать номер нужной задачи
         n = None
-        while n not in range(len(task) + 1):
+        while n not in range(1, len(tasks) + 1):
             try:
                 n = int(input('Введите номер нужной задачи: '))
+                if n < 1:
+                    raise LessThanOneValueError
                 task_id = tasks[n - 1][0]
-            except ValueError:
+            except (ValueError, IndexError, LessThanOneValueError):
                 cprint('Неправильное значение', 'red')
 
     column_name = input('В какую колонку?: ')
@@ -175,12 +182,12 @@ def main():
             board_id = data['board_id']
     except:
         auth_params = get_auth_params()
-        board_id = input('And board ID: ')
+        board_id = input('И ID доски: ')
 
     status_code = check_connection(auth_params, board_id)
     while status_code != 200:
         auth_params = get_auth_params('Не удаётся подключиться. Проверьте введённые данные.')
-        board_id = input('And board ID: ')
+        board_id = input('И ID доски: ')
         status_code = check_connection(auth_params, board_id)
     save_user_data(auth_params, board_id)
 
